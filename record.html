@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Data</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="./Bootsrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="./Bootsrap/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="navigation"><nav class="nav">
+        <h2 class="nav-logo">DataSpace</h2> 
+        <h3 class="nav-content" onclick=home()>Home</h3>
+        <h3 class="nav-content" onclick=collection()>Add Record</h3>
+        <h3 class="nav-content" onclick=about()>About</h3>
+<img src="./images/profile.jpg" class="profile_img">
+        </nav>
+      </div>
+
+      <form onSubmit={handleSubmit} class="entity-form">
+        <div class="form">
+          <h3 class="record">Patient Name: </h3>
+          <input
+           type="text" 
+           id="entry_name"
+           class="entity-inputs" />
+        </div>
+          <div class="form">
+          <h3 class="record">Sex: </h3>
+          <input type="text"
+          id="entry_sex"
+          class="entity-inputs"  />
+        </div>
+        <div class="form">
+          <h3 class="record">Illness: </h3>
+          <input type="text" 
+          id="entry_illness"
+          class="entity-inputs"
+          />
+        </div>
+        <div class="form"> 
+          <h3 class="record">Admission/Arrival date: </h3>
+          <input type="text" 
+          id="entry_admissiondate"
+          class="entity-inputs" />
+        </div>
+        <div class="form">
+          <h3 class="record">Discharge date: </h3>
+          <input type="text" 
+          id="entry_dischargedate"
+          class="entity-inputs"
+          />
+        </div>
+        <div class="form">
+          <h3 class="record">Check Up date:</h3>
+          <input
+           type="text" 
+           id="entry_checkdate"
+           class="entity-inputs"
+           />
+        </div>
+        </div>
+        <div class="form">
+          <h3 class="record">Disease History:</h3>
+          <input
+           type="text" 
+           id="entry_history"
+           class="entity-inputs"
+           />
+        </div>
+        <div class="form">
+          <h3 class="record">Contact:</h3>
+          <input
+           type="text" 
+           id="entry_contact"
+           class="entity-inputs"
+           />
+        </div>
+      </form>
+      <div> <button class="add_btn" onclick="addRecord()">Add Record</button>
+      </div>
+      <div class="container" style="margin-top: 75px; margin-bottom: 35px;">
+        <div class="row">
+          <div class="col-sm-3"><h2 class="aboutheader">Our Services</h2><p class="aboutgraph">We deal in faster deposition of money in your wallet</p></div>
+          <div class="col-sm-3"><h2 class="aboutheader">About Us</h2><p class="aboutgraph">We deal in faster deposition of money in your walle</p></div>
+          <div class="col-sm-3"><h2 class="aboutheader">Our Goals</h2><p class="aboutgraph">To aid in faster and easier funds transfer</p></div>
+          <div class="col-sm-3"><h2 class="aboutheader">Our Goals</h2><p class="aboutgraph">To aid in faster and easier funds transfer</p></div>
+        </div>
+        </div>
+  
+        <div>
+          <p class="footergraph">W3Schools is optimized for learning and training. Examples might be simplified to improve reading and learning. Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content. While using W3Schools, you agree to have read and accepted our terms of use, cookie and privacy policy.
+          </p>
+          <p class="copyright">Copyright 1999-2023 by Refsnes Data. All Rights Reserved.</p>
+          <h3 class="footerlogo">DataSpace</h3>
+        </div>
+
+     
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script type="text/javascript" src="./js/app.js"></script>
+  </body>
+</html>
