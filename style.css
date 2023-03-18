@@ -1,0 +1,235 @@
+
+body {
+
+ font-family: Arial, sans-serif;
+  background: linear-gradient(50.26deg, #5e5e69 0%, #332e31 100%)
+
+}
+
+.nav{
+    display:flex;
+    position: fixed;
+    align-items:center;
+    width: 100%;
+    top: 0;
+    height: 55px;
+    left: 0;
+    margin-bottom: 75px;
+    background-color: #101111;
+    box-shadow:rgb(179, 162, 162) 0px 2px 8px 0px;
+    }
+    
+    .nav-content{
+        margin-right: 27px;
+        cursor: pointer;
+        color: white;
+        font-size: 155%;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .nav-content:hover{
+        color:yellow;
+    }
+
+    .signin{
+        margin-left: auto;
+        cursor:pointer;
+        margin-right:5px;
+        color: yellow;
+        font-size: 125%;
+    }
+    .signin:hover{
+        color:#f2f2f2;
+    }
+    
+    .signup{
+        margin-left: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+        color: yellow;
+        font-size: 125%;
+    }
+    .signup:hover{
+        color:white;
+    }
+    
+    .nav-logo{
+        margin-right:10%;
+        color: yellow;
+        margin-left: 7px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 400;
+    }
+
+    .navigation{
+        margin-bottom: 75px; 
+    }
+    .login{
+        margin-left: auto;
+        cursor:pointer;
+        margin-right:5px;
+        color: black;
+    }
+    
+    .signup{
+        margin-left: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+/*add black background to navigation bar*/
+.topnav{
+    background-color:rgb(11, 76, 129);
+    overflow:hidden;
+    }
+    .search{
+        margin-right: 3px;
+        border-radius: 7px;
+    }
+    .search-btn{
+        margin-right: 15px;
+        border-radius: 5px;
+        color: black;
+        background-color: yellow;
+    }
+    
+    .datadetails{
+        display: flex;
+    }
+    .datadetailsrecords{
+        align-content: center;
+        background-color: white;
+        border-radius: 5px;
+        align-items: center;
+        text-align: center;
+        margin-left: 15px;
+        margin-right: 15px;
+        width: 225px;
+        height: 75px;
+    }
+
+    .headdetails{
+        color: black;
+        font-weight: 1100;
+      
+    }
+    
+    .records{
+        color: blue;
+    }
+
+    #tablerow:onclick{
+        color: green;
+    }
+
+    #tablerow:hover{
+      color: yellow;
+      cursor: pointer;
+    }
+
+    .aboutheader{
+      color: rgb(28, 223, 125);
+      text-align: center;
+    }
+    .aboutgraph{
+       color:white;
+       text-align: center;
+    }
+
+    .footergraph{
+        text-align: center;
+        color: rgb(0, 255, 191);
+    }
+
+    .footer{
+        text-align: center;
+    }
+    .copyright{
+        text-align: center;
+        color: white;
+    }
+    .footerlogo{
+        text-align: center;
+        color: yellow;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    
+    /* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .nav, .main, .right {
+      width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+      height: 80px;
+    
+    }
+  }
+
+@media screen and (max-width:800px){
+.datadetailsrecords{
+        margin-left: 1px;
+        margin-right: 3px;
+        width: 225px;
+        height: 90px;
+}
+}
+
+/*records*/
+.profile_img{
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: 10px;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+}
+.record_form{
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.recordform_inner{
+display: flex;
+}
+.record{
+    color: rgb(13, 255, 85);
+    margin-right: 5px;
+}
+.entity-inputs{
+    border-radius: 5px;
+}
+.add_btn{
+    padding: 5px 25px;
+   background-color: rgb(13, 255, 85);
+    border-radius: 5px;
+    margin-left: 50%;
+    border-color: white;
+    margin-right: 7px;
+}
+.edit_btn{
+    padding: 5px 25px;
+    background-color: rgb(13, 255, 85);
+    border-radius: 5px;
+    margin-left: 50%;
+    border-color: white;
+    margin-right: 7px;
+}
+.delete_btn{
+    padding: 5px 25px;
+   background-color: rgb(13, 255, 85);
+    border-radius: 5px;
+    border-color: white;
+    margin-right: 7px;
+}
+
+
+.edit_btns{
+    display: flex;
+    flex-direction: row;
+}
+
+.entity-form{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .form{
+    margin: 20px;
+  }
