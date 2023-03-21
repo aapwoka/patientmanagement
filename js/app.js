@@ -387,11 +387,7 @@ function addRecord(){
 		contact:contact
 	}
 
-	//var user = firebase.auth.currentUser;
-	//var uid;
-	//if(user!=null){
-	//	uid = user.uid;
-//	}
+
 
 	console.log("continue to input patient data")
     firebaseRef = firebase.database();
