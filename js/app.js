@@ -10,9 +10,9 @@ function checkUserEmail(){
         flag = true;
     }
     if(flag){
-        document.getElementById("userEmailError").style.display = "block";
+        window.alert("check email");
     }else{
-        document.getElementById("userEmailError").style.display = "none";
+        window.alert("check email");
     }
 }
 // xxxxxxxxxx Password Validation xxxxxxxxxx
@@ -26,31 +26,30 @@ function checkUserPassword(){
         flag = true;
     }    
     if(flag){
-        document.getElementById("userPasswordError").style.display = "block";
+        window.alert("check password");
     }else{
-        document.getElementById("userPasswordError").style.display = "none";
+        window.alert("check password");
     }
 }
 
 // xxxxxxxxxx Submitting and Creating new user in firebase authentication xxxxxxxxxx
 function signUp(){
     var userEmail = document.getElementById("userEmail").value;
-    var userPassword1 = document.getElementById("userPassword1").value;
-    var userPassword2 = document.getElementById("userPassword2").value;
+    var userPassword = document.getElementById("userPassword").value;
   
     var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;      
 
 
     var checkUserEmailValid = userEmail.match(userEmailFormate);
-    var checkUserPasswordValid = userPassword1.match(userPasswordFormate);
+    var checkUserPasswordValid = userPassword.match(userPasswordFormate);
 
   if(checkUserEmailValid == null){
         return checkUserEmail();
     }else if(checkUserPasswordValid == null){
         return checkUserPassword();
     }else{
-        firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword1).then((success) => {
+        firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).then((success) => {
             var user = firebase.auth().currentUser;
             var uid;
             if (user != null) {
@@ -59,10 +58,12 @@ function signUp(){
             var firebaseRef = firebase.database().ref();
             var userData = {
                 userEmail: userEmail,
-                userPassword: userPassword1,
+                userPassword: userPassword,
             }
             firebaseRef.child(uid).set(userData);
-            window.alert("Succesfully Signed Up.Continue to sign In...").then((value) => {      
+            window.alert("Succesfully Signed Up.Continue to sign In...").then((value) => {
+              window.location="signIn.html"
+                
             });
         }).catch((error) => {
             // Handle Errors here.
@@ -116,20 +117,20 @@ function checkUserSIPassword(){
 
 // xxxxxxxxxx Check email or password exsist in firebase authentication xxxxxxxxxx    
 function signIn(){
-    var userEmail = document.getElementById("userEmail").value;
-    var userPassword = document.getElementById("userPassword").value;
+    var userSIEmail = document.getElementById("userSIEmail").value;
+    var userSIPassword = document.getElementById("userSIPassword").value;
     var userSIEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var userSIPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;      
 
-    var checkUserEmailValid = userEmail.match(userSIEmailFormate);
-    var checkUserPasswordValid = userPassword.match(userSIPasswordFormate);
+    var checkUserEmailValid = userSIEmail.match(userSIEmailFormate);
+    var checkUserPasswordValid = userSIPassword.match(userSIPasswordFormate);
 
     if(checkUserEmailValid == null){
         return checkUserSIEmail();
     }else if(checkUserPasswordValid == null){
         return checkUserSIPassword();
     }else{
-        firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
+        firebase.auth().signInWithEmailAndPassword(userSIEmail, userSIPassword)
         .then((success) => {
             window.alert("Succesfully Signed In")
             firebase.auth().onAuthStateChanged(user => {
@@ -151,6 +152,137 @@ function signIn(){
             })
         });
     }
+}
+// xxxxxxxxxx Working For Profile Page xxxxxxxxxx
+// xxxxxxxxxx Get data from server and show in the page xxxxxxxxxx
+firebase.auth().onAuthStateChanged((user)=>{
+    if (user) {
+    //   User is signed in.
+        let user = firebase.auth().currentUser;
+        let uid
+        if(user != null){
+            uid = user.uid;
+        }
+        let firebaseRefKey = firebase.database().ref().child(uid);
+        firebaseRefKey.on('value', (dataSnapShot)=>{
+            document.getElementById("userPfFullName").innerHTML = dataSnapShot.val().userFullName;
+            document.getElementById("userPfSurname").innerHTML = dataSnapShot.val().userSurname;
+            // userEmail = dataSnapShot.val().userEmail;
+            // userPassword = dataSnapShot.val().userPassword;
+            document.getElementById("userPfFb").setAttribute('href', dataSnapShot.val().userFb);
+            document.getElementById("userPfTw").setAttribute('href', dataSnapShot.val().userTw);
+            document.getElementById("userPfGp").setAttribute('href', dataSnapShot.val().userGp);
+            document.getElementById("userPfBio").innerHTML = dataSnapShot.val().userBio;
+        })
+    } else {
+    //   No user is signed in.
+    }
+});
+// xxxxxxxxxx Show edit profile form with detail xxxxxxxxxx
+function showEditProfileForm(){
+    document.getElementById("profileSection").style.display = "none"
+    document.getElementById("editProfileForm").style.display = "block"
+    var userPfFullName = document.getElementById("userPfFullName").innerHTML;
+    var userPfSurname = document.getElementById("userPfSurname").innerHTML;
+    var userPfFb = document.getElementById("userPfFb").getAttribute("href");
+    var userPfTw = document.getElementById("userPfTw").getAttribute("href");
+    var userPfGp = document.getElementById("userPfGp").getAttribute("href");
+    var userPfBio = document.getElementById("userPfBio").innerHTML;
+    document.getElementById("userFullName").value = userPfFullName; 
+    document.getElementById("userSurname").value = userPfSurname; 
+    document.getElementById("userFacebook").value = userPfFb; 
+    document.getElementById("userTwitter").value = userPfTw; 
+    document.getElementById("userGooglePlus").value = userPfGp; 
+    document.getElementById("userBio").value = userPfBio; 
+}
+// xxxxxxxxxx Hide edit profile form xxxxxxxxxx
+function hideEditProfileForm(){
+    document.getElementById("profileSection").style.display = "block";
+    document.getElementById("editProfileForm").style.display = "none";
+}
+// xxxxxxxxxx Save profile and update database xxxxxxxxxx
+function saveProfile(){
+    let userFullName = document.getElementById("userFullName").value 
+    let userSurname = document.getElementById("userSurname").value 
+    let userFacebook = document.getElementById("userFacebook").value 
+    let userTwitter = document.getElementById("userTwitter").value 
+    let userGooglePlus = document.getElementById("userGooglePlus").value 
+    let userBio = document.getElementById("userBio").value
+    var userFullNameFormate = /^([A-Za-z.\s_-])/; 
+    var checkUserFullNameValid = userFullName.match(userFullNameFormate);
+    if(checkUserFullNameValid == null){
+        return checkUserFullName();
+    }else if(userSurname === ""){
+        return checkUserSurname();
+    }else{
+        let user = firebase.auth().currentUser;
+        let uid;
+        if(user != null){
+            uid = user.uid;
+        }
+        var firebaseRef = firebase.database().ref();
+        var userData = {
+            userFullName: userFullName,
+            userSurname: userSurname,
+            userFb: userFacebook,
+            userTw: userTwitter,
+            userGp: userGooglePlus,
+            userBio: userBio,
+        }
+        firebaseRef.child(uid).set(userData);
+     window.alert("Profile Saved Succesfully")
+  
+
+     
+     .then((value) => {
+            setTimeout(function(){
+                document.getElementById("profileSection").style.display = "block";
+
+                document.getElementById("editProfileForm").style.display = "none";
+            }, 1000)
+        });
+    }
+}
+// xxxxxxxxxx Working For Sign Out xxxxxxxxxx
+function signOut(){
+   
+            
+    firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+          window.location = 'book_store.html'; //After successful login, user will be redirected to profile.html
+          window.alert("Succesfully Signed Out")
+        }
+    
+      });
+
+}
+
+
+function collection(){
+	window.location ="record.html"
+}
+function home(){
+	window.location ="index.html"
+}
+function editRecord(){
+	window.location="editRecord.html"
+}
+
+// Firebase Database Reference and the child
+
+
+
+
+	
+// --------------------------
+// ADD
+// --------------------------
+
+function changemode(){
+StyleSheet = ""
+}
+function changemode2(){
+
 }
 
 
@@ -175,44 +307,15 @@ function addRecord(){
 		contact:contact
 	}
 
-    firebase.auth().onAuthStateChanged(user => {
-        if(user) {
-          window.location = 'home.html'; //After successful login, user will be redirected to profile.html
-        }
-      });
-
-      var user = firebase.auth().currentUser;
-      var uid;
-      if (user != null) {
-          uid = user.uid;
-      }
-      var firebaseRef = firebase.database().ref();
-
-      firebaseRef.child(uid).set(newPatient);
-
+    var user = firebase.auth().currentUser;
+    var uid;
+    if (user != null) {
+        uid = user.uid;
+    }
+    var firebaseRef = firebase.database().ref();
+    firebaseRef.child('users/' + uid).push(newPatient);
+	//usersRef.push(newPatient)
 }
-
-
-
-function collection(){
-	window.location ="record.html"
-}
-function home(){
-	window.location ="index.html"
-}
-function editRecord(){
-	window.location="editRecord.html"
-}
-
-// Firebase Database Reference and the child
-
-
-
-
-	
-
-
-
 
 
 // --------------------------
