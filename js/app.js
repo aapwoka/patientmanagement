@@ -268,15 +268,93 @@ function editRecord(){
 	window.location="editRecord.html"
 }
 
-// Firebase Database Reference and the child
+
+readUserData(); 
 
 
-
-
-	
 // --------------------------
-// ADD
+// READ
 // --------------------------
+function readUserData() {
+
+    var user = firebase.auth().currentUser;
+    var uid;
+    if (user != null) {
+        uid = user.uid;
+    }
+    var firebaseRef = firebase.database().ref();
+    var patientsRef=firebaseRef.child('users/' + uid)
+
+
+	const patientListUI = document.getElementById("patient-list");
+
+	patientsRef.on("value", snap => {
+
+		patientListUI.innerHTML = ""
+
+		snap.forEach(childSnap => {
+
+			let key = childSnap.key,
+				value = childSnap.val()
+
+			let $li = document.createElement("li");
+
+			// edit icon
+			//let editIconUI = document.createElement("span");
+			//editIconUI.class = "edit-user";
+			//editIconUI.innerHTML = " " + " " + " " + "✎";
+			//editIconUI.setAttribute("userid", key);
+			//editIconUI.addEventListener("click", editButtonClicked)
+
+			// delete icon
+			//let deleteIconUI = document.createElement("span");
+			//deleteIconUI.class = "delete-user";
+			//deleteIconUI.innerHTML = " " + " " + " " + " "+ " "+ " ☓";
+			//deleteIconUI.setAttribute("userid", key);
+			//deleteIconUI.addEventListener("click", deleteButtonClicked)
+
+			$li.innerHTML = value.Patient_Name;
+			//$li.append(editIconUI);
+			//$li.append(deleteIconUI);
+
+			$li.setAttribute("user-key", key);
+			$li.addEventListener("click", userClicked)
+			userListUI.append($li);
+
+ 		});
+
+
+	})
+
+}
+
+
+
+function userClicked(e) {
+
+
+		var userID = e.target.getAttribute("user-key");
+
+		const userRef = dbRef.child('users/' + userID);
+		const userDetailUI = document.getElementById("user-detail");
+
+		userRef.on("value", snap => {
+
+			userDetailUI.innerHTML = ""
+
+			snap.forEach(childSnap => {
+				var $p = document.createElement("p");
+				$p.innerHTML = childSnap.key  + " - " +  childSnap.val();
+				userDetailUI.append($p);
+			})
+
+		});
+
+
+}
+
+
+
 
 function changemode(){
 StyleSheet = ""
@@ -285,7 +363,7 @@ function changemode2(){
 
 }
 
-
+//ADD
 function addRecord(){
 	var name = document.getElementById('entry_name').value;
 	var sex = document.getElementById('entry_sex').value;
@@ -314,7 +392,6 @@ function addRecord(){
     }
     var firebaseRef = firebase.database().ref();
     firebaseRef.child('users/' + uid).push(newPatient);
-	//usersRef.push(newPatient)
 }
 
 
