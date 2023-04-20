@@ -153,6 +153,9 @@ function signIn(){
         });
     }
 }
+
+readUserData()
+
 // xxxxxxxxxx Working For Profile Page xxxxxxxxxx
 // xxxxxxxxxx Get data from server and show in the page xxxxxxxxxx
 firebase.auth().onAuthStateChanged((user)=>{
@@ -269,7 +272,7 @@ function editRecord(){
 }
 
 
-readUserData(); 
+ 
 
 
 // --------------------------
@@ -283,39 +286,40 @@ function readUserData() {
         uid = user.uid;
     }
     var firebaseRef = firebase.database().ref();
-    var patientsRef=firebaseRef.child('users/' + uid)
+    var patientsRef=firebaseRef.child('users');
 
 
-	const patientListUI = document.getElementById("patient-list");
+	const userListUI = document.getElementById("user-list");
 
-	patientsRef.on("value", snap => {
+	patientsRef.on("value", Snapshot => {
+      
 
-		patientListUI.innerHTML = ""
+		userListUI.innerHTML = ""
 
-		snap.forEach(childSnap => {
+		Snapshot.forEach(childSnapshot => {
 
-			let key = childSnap.key,
-				value = childSnap.val()
+			var key = childSnapshot.key,
+				value = childSnapshot.val()
 
-			let $li = document.createElement("li");
+			var $li = document.createElement("li");
 
 			// edit icon
-			//let editIconUI = document.createElement("span");
-			//editIconUI.class = "edit-user";
-			//editIconUI.innerHTML = " " + " " + " " + "✎";
-			//editIconUI.setAttribute("userid", key);
-			//editIconUI.addEventListener("click", editButtonClicked)
+			let editIconUI = document.createElement("span");
+			editIconUI.class = "edit-user";
+			editIconUI.innerHTML = " " + " " + " " + "✎";
+			editIconUI.setAttribute("userid", key);
+			editIconUI.addEventListener("click", editButtonClicked)
 
 			// delete icon
-			//let deleteIconUI = document.createElement("span");
-			//deleteIconUI.class = "delete-user";
-			//deleteIconUI.innerHTML = " " + " " + " " + " "+ " "+ " ☓";
-			//deleteIconUI.setAttribute("userid", key);
-			//deleteIconUI.addEventListener("click", deleteButtonClicked)
+			let deleteIconUI = document.createElement("span");
+			deleteIconUI.class = "delete-user";
+			deleteIconUI.innerHTML = " " + " " + " " + " "+ " "+ " ☓";
+			deleteIconUI.setAttribute("userid", key);
+			deleteIconUI.addEventListener("click", deleteButtonClicked)
 
-			$li.innerHTML = value.Patient_Name;
-			//$li.append(editIconUI);
-			//$li.append(deleteIconUI);
+			$li.innerHTML = value.name;
+			$li.append(editIconUI);
+			$li.append(deleteIconUI);
 
 			$li.setAttribute("user-key", key);
 			$li.addEventListener("click", userClicked)
