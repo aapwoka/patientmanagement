@@ -2,7 +2,7 @@
 body {
 
  font-family: Arial, sans-serif;
-  background: linear-gradient(50.26deg, #5e5e69 0%, #332e31 100%)
+  background: linear-gradient(50.26deg, #262635 0%, #572a45 100%);
 
 }
 
@@ -90,6 +90,10 @@ body {
         border-radius: 5px;
         color: black;
         background-color: yellow;
+    }
+
+    .conatinermt3{
+     margin:30px;
     }
     
     .datadetails{
