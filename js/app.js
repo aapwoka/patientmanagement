@@ -270,6 +270,9 @@ function home(){
 function editRecord(){
 	window.location="editRecord.html"
 }
+function homePage(){
+    window.location="home.html"
+}
 
 
  
@@ -286,7 +289,7 @@ function readUserData() {
         uid = user.uid;
     }
     var firebaseRef = firebase.database().ref();
-    var patientsRef=firebaseRef.child('users');
+    var patientsRef=firebaseRef.child('users/'+ uid);
 
 
 	const userListUI = document.getElementById("user-list");
